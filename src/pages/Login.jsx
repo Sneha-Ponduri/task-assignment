@@ -14,7 +14,7 @@ export default function Login({ setIsAuthenticated }) {
       const res = await axios.post(`${API_URL}/api/auth/login`, { email, password });
       localStorage.setItem("token", res.data.token);
       setIsAuthenticated(true);
-      navigate("/dashboard"); // redirect after login
+      navigate("/overview"); // redirect after login
     } catch (err) {
       alert(err.response?.data?.message || "Login failed");
     }
