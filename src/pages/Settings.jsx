@@ -446,33 +446,23 @@
 
 
 
-
 import React, { useState } from "react";
-import { Bell, Menu } from "lucide-react";
+import { Bell } from "lucide-react";
 import Sidebar from "../components/Sidebar";
-
 
 export default function Settings() {
   const [activeTab, setActiveTab] = useState("Notification");
-  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
   return (
     <div className="min-h-screen bg-gray-50 flex">
       {/* Sidebar */}
-      <Sidebar isOpen={isSidebarOpen} setIsOpen={setIsSidebarOpen} />
+      <Sidebar />
 
       {/* Main Content */}
       <div className="flex-1">
         {/* Header */}
         <div className="flex items-center justify-between bg-white px-4 py-3 shadow-sm border-b fixed top-0 left-0 right-0 z-10 lg:ml-64">
           <div className="flex items-center gap-3">
-            {/* Hamburger Menu */}
-            <button
-              className="p-2 rounded-md hover:bg-gray-100 lg:hidden"
-              onClick={() => setIsSidebarOpen(!isSidebarOpen)}
-            >
-              <Menu size={24} className="text-gray-700" />
-            </button>
             <h1 className="text-lg font-semibold">Settings</h1>
           </div>
 
@@ -564,7 +554,7 @@ export default function Settings() {
                     Timezone
                   </label>
                   <select className="w-full border rounded-lg px-3 py-2 text-sm">
-                    <option>English (Default)</option>
+                    <option>GMT (Default)</option>
                     <option>EST</option>
                     <option>PST</option>
                   </select>
@@ -628,3 +618,6 @@ export default function Settings() {
     </div>
   );
 }
+
+
+
