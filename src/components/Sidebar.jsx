@@ -97,6 +97,7 @@
 
 
 
+import { useState } from "react";
 import { NavLink } from "react-router-dom";
 import {
   LayoutGrid,
@@ -106,6 +107,7 @@ import {
   Settings,
   HelpCircle,
   BookOpen,
+  Menu,
 } from "lucide-react";
 
 const navItems = [
@@ -117,49 +119,71 @@ const navItems = [
 ];
 
 export default function Sidebar() {
+  const [isOpen, setIsOpen] = useState(false);
+
   return (
-    <div className="w-64 bg-white shadow-md h-screen fixed left-0 top-0 flex flex-col justify-between">
-      {/* Logo Section */}
-      <div>
-        <div className="flex items-center gap-3 px-6 py-6">
-          <div className="bg-blue-500 p-2 rounded-lg">
-            <BookOpen className="w-6 h-6 text-white" />
+    <>
+      {/* Mobile Top Bar */}
+      <div className="lg:hidden fixed top-0 left-0 w-full bg-white shadow-md p-4 flex justify-between items-center z-50">
+        <button onClick={() => setIsOpen(!isOpen)}>
+          <Menu className="w-6 h-6 text-gray-700" />
+        </button>
+        <span className="text-lg font-bold">DNX</span>
+        <img
+          src="https://randomuser.me/api/portraits/women/44.jpg"
+          alt="Profile"
+          className="w-8 h-8 rounded-full"
+        />
+      </div>
+
+      {/* Sidebar */}
+      <div
+        className={`fixed top-0 left-0 h-full w-64 bg-white shadow-lg flex flex-col justify-between transform transition-transform duration-300 z-40 ${
+          isOpen ? "translate-x-0" : "-translate-x-full lg:translate-x-0"
+        }`}
+      >
+        <div>
+          {/* Logo */}
+          <div className="flex items-center gap-3 px-6 py-6">
+            <div className="bg-blue-500 p-2 rounded-lg">
+              <BookOpen className="w-6 h-6 text-white" />
+            </div>
+            <span className="text-xl font-bold">DNX</span>
           </div>
-          <span className="text-xl font-bold">DNX</span>
+
+          {/* Navigation Links */}
+          <nav className="mt-4 flex flex-col gap-1">
+            {navItems.map((item) => (
+              <NavLink
+                key={item.name}
+                to={item.path}
+                className={({ isActive }) =>
+                  `flex items-center gap-3 px-6 py-3 text-gray-700 hover:bg-gray-100 transition rounded-lg mx-3 ${
+                    isActive ? "bg-gray-100 font-semibold" : ""
+                  }`
+                }
+              >
+                <item.icon className="w-5 h-5 text-gray-500" />
+                <span>{item.name}</span>
+              </NavLink>
+            ))}
+          </nav>
         </div>
 
-        {/* Navigation Links */}
-        <nav className="mt-4 flex flex-col gap-1">
-          {navItems.map((item) => (
-            <NavLink
-              key={item.name}
-              to={item.path}
-              className={({ isActive }) =>
-                `flex items-center gap-3 px-6 py-3 text-gray-700 hover:bg-gray-100 transition rounded-lg mx-3 ${
-                  isActive ? "bg-gray-100 font-semibold" : ""
-                }`
-              }
-            >
-              <item.icon className="w-5 h-5 text-gray-500" />
-              <span>{item.name}</span>
-            </NavLink>
-          ))}
-        </nav>
-      </div>
-
-      {/* Help Center */}
-      <div className="p-4">
-        <div className="bg-gray-900 text-white rounded-2xl p-4 flex flex-col items-center text-center">
-          <HelpCircle className="w-6 h-6 mb-2" />
-          <h3 className="text-sm font-semibold">Help Center</h3>
-          <p className="text-xs text-gray-300 mt-1">
-            Having trouble in learning? Please contact us for more questions.
-          </p>
-          <button className="mt-3 bg-white text-gray-900 text-sm font-semibold px-3 py-2 rounded-lg hover:bg-gray-100 transition">
-            Go To Help Center
-          </button>
+        {/* Help Center */}
+        <div className="p-4">
+          <div className="bg-gray-900 text-white rounded-2xl p-4 text-center">
+            <HelpCircle className="w-6 h-6 mb-2 mx-auto" />
+            <h3 className="text-sm font-semibold">Help Center</h3>
+            <p className="text-xs text-gray-300 mt-1">
+              Having trouble? Contact us.
+            </p>
+            <button className="mt-3 bg-white text-gray-900 text-sm font-semibold px-3 py-2 rounded-lg hover:bg-gray-100 transition">
+              Go To Help Center
+            </button>
+          </div>
         </div>
       </div>
-    </div>
+    </>
   );
 }
