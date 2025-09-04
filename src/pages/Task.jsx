@@ -656,7 +656,8 @@
 import React, { useState } from "react";
 import { Search, Filter, ArrowUpDown, Bell, Menu } from "lucide-react";
 import { Link } from "react-router-dom";
-import Sidebar from "./Sidebar";
+import Sidebar from "../components/Sidebar";
+
 
 import one from "../assets/one.jpg";
 import two from "../assets/two.jpg";

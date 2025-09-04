@@ -449,7 +449,8 @@
 
 import React, { useState } from "react";
 import { Bell, Menu } from "lucide-react";
-import Sidebar from "./Sidebar";
+import Sidebar from "../components/Sidebar";
+
 
 export default function Settings() {
   const [activeTab, setActiveTab] = useState("Notification");
